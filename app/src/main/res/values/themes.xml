@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.DataSharing" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.DataSharing" parent="Theme.AppCompat">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.DataSharing" parent="Base.Theme.DataSharing" />
+
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="android:textColorSecondary">@color/darkBlue</item>
+    </style>
+
 </resources>

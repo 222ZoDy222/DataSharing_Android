@@ -7,40 +7,52 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
+import androidx.fragment.app.Fragment
+import com.zdy.datasharing.Menu.SharePhotoFragment
+import com.zdy.datasharing.Menu.ShareTextFragment
+import com.zdy.datasharing.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bindButton()
+        binding.bNav.bNav.selectedItemId = R.id.shareText
+        SelectMenu(R.id.shareText)
 
-    }
-
-
-    private fun bindButton(){
-        val btn = findViewById<Button>(R.id.button)
-
-        btn.setOnClickListener(::ShareEditTextData)
-
-    }
-
-    private fun ShareEditTextData(view: View){
-
-        val editText = findViewById<EditText>(R.id.editText)
-        val textToShare = editText.text
-
-        if(textToShare.isNullOrEmpty()) return
-
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,textToShare)
-            type = "text/plain"
+        binding.bNav.bNav.setOnItemSelectedListener {
+            SelectMenu(it.itemId)
+            true
         }
 
-        var shareIntent = Intent.createChooser(sendIntent,null)
-        startActivity(shareIntent)
 
     }
+
+    private fun SelectMenu(itemID: Int){
+        when(itemID){
+
+            R.id.shareText ->{
+                SetFragment(ShareTextFragment.newInstance())
+            }
+
+            R.id.sharePhoto ->{
+                SetFragment(SharePhotoFragment.newInstance())
+            }
+
+        }
+    }
+
+    private fun SetFragment(fragment: Fragment){
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView,fragment).commit()
+
+    }
+
+
 
 }
